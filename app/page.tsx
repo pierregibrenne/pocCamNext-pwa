@@ -8,21 +8,24 @@ export default function Home() {
 
   const handleCamera = async () => {
     if (isCameraOn) {
-      const stream = videoRef.current.srcObject;
-      const tracks = stream.getTracks();
-
-      tracks.forEach(track => track.stop());
-      videoRef.current.srcObject = null;
+      if (videoRef.current) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        videoRef.current.srcObject = null;
+      }
       setIsCameraOn(false);
     } else {
       try {
         const constraints = {
           video: {
-            facingMode: { exact: "environment" } // Utilise "user" pour la caméra avant et "environment" pour la caméra arrière
+            facingMode: { ideal: "environment" } // Utilise "user" pour la caméra avant et "environment" pour la caméra arrière
           }
         };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        videoRef.current.srcObject = stream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
         setIsCameraOn(true);
       } catch (err) {
         console.error("Error accessing the camera: ", err);
