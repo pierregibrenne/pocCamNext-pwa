@@ -3,13 +3,13 @@
 import { useRef, useState } from 'react';
 
 export default function Home() {
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isCameraOn, setIsCameraOn] = useState(false);
 
   const handleCamera = async () => {
     if (isCameraOn) {
       if (videoRef.current) {
-        const stream = videoRef.current.srcObject;
+        const stream = videoRef.current.srcObject as MediaStream;
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop());
         videoRef.current.srcObject = null;
