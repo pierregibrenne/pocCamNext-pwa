@@ -16,6 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
